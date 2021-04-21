@@ -168,19 +168,26 @@ export class SearchPhotos extends Component {
     }
 
     render() {
+
+        let headerComp = document.getElementById("header");
+        let galleryComp = document.getElementById("gallery");
+
+        if (headerComp != null) {
+            galleryComp.style.marginTop = headerComp.offsetHeight + "px";
+        }
         
         return (
             <div key="view">
-                <Row>
+                <Row className="header-style" id="header">
                     <Col span={24}>
                         <Row>
                             <Col span={24}>
-                                <h3>Search Images</h3>
+                                <h2>Search Images</h2>
                             </Col>
                         </Row>
                         <Row>
                             <Col span={12} offset={6}>
-                                <Input value={this.state.search} onChange={this.handleChange} />
+                                <Input value={this.state.search} onChange={this.handleChange} placeholder="Enter your keyword here..." />
                             </Col>
                             <Col offset={1} span={2}>
                                 <Button danger onClick={this.clearSearch}>Clear</Button>
@@ -190,10 +197,10 @@ export class SearchPhotos extends Component {
                             <div>
                                 <br />
                                 <Row>
-                                    <Col span={2} offset={1}>
+                                    <Col span={3} offset={1}>
                                         {"Recent Searches: "}
                                     </Col>
-                                    <Col span={20} style={{textAlign: 'left'}}>
+                                    <Col span={19} style={{textAlign: 'left'}}>
                                         <div>
                                             {this.state.previouslySearchedItems.map((tag, index) => {
                                                 const isLongTag = tag.length > 10;
@@ -209,12 +216,13 @@ export class SearchPhotos extends Component {
                                         </div>
                                     </Col>
                                 </Row>
+                                <br />
                             </div> : null
                         }
                     </Col>
                 </Row>
                 <br />
-                <Row>
+                <Row id="gallery">
                     <Col>
                         <InfiniteScroll
                             dataLength={this.state.totalImagesFetched.length}
